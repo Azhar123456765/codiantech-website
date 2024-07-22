@@ -46,6 +46,19 @@ Route::get('/our-partners', function () {
     $page = App\Page::where('page_name', 'our-partners')->firstOrFail();
     return view('our_partners', compact('page'));
 });
+
+
+Route::get('/careers', function () {
+    $page = App\Page::where('page_name', 'career')->firstOrFail();
+    $jobs = App\Models\Job::all();
+    return view('career.listing', compact('page', 'jobs'));
+});
+
+Route::get('/job/{job_name}', function ($job_title) {
+    $job = App\Models\Job::where('title', $job_title)->firstOrFail();
+    return view('career.details', compact('job'));
+});
+
 // SERVICES 
 Route::get('/services', function () {
     return view('services.services');
